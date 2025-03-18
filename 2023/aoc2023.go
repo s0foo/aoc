@@ -30,15 +30,11 @@ func day1a() (int, error) {
 				if !foundFirst {
 					firstDigit = char
 					foundFirst = true
-				} else {
-					lastDigit = char
 				}
+				lastDigit = char
 			}
 		}
 
-		if lastDigit == 0 {
-			lastDigit = firstDigit
-		}
 		calibration = string(firstDigit) + string(lastDigit)
 		calibrationValue, err := strconv.Atoi(calibration)
 		if err != nil {
