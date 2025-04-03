@@ -12,3 +12,11 @@ func TestDay1a(t *testing.T) {
 	}
 	log.Println("Result:", result)
 }
+
+func TestDay1b(t *testing.T) {
+	result, err := day1b()
+	if err != nil {
+		t.Errorf("day1b internal error")
+	}
+	log.Println("Result:", result)
+}
