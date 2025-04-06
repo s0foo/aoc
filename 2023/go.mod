@@ -1,3 +1,3 @@
 module github.com/s0foo/aoc/2023
 
-go 1.22.2
+go 1.19

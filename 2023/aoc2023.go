@@ -9,7 +9,7 @@ import (
 	"unicode"
 )
 
-func day1a() (int, error) {
+func day1a() int {
 	file, err := os.Open("data/day1.txt")
 	if err != nil {
 		log.Fatalf("failed to open file: %s", err)
@@ -45,10 +45,10 @@ func day1a() (int, error) {
 		sum += calibrationValue
 	}
 
-	return sum, nil
+	return sum
 }
 
-func day1b() (int, error) {
+func day1b() int {
 	file, err := os.Open("data/day1.txt")
 	if err != nil {
 		log.Fatalf("failed to open file: %s", err)
@@ -113,5 +113,129 @@ func day1b() (int, error) {
 		sum += calibrationValue
 	}
 
-	return sum, nil
+	return sum
+}
+
+func day2a() int {
+	file, err := os.Open("data/day2.txt")
+	if err != nil {
+		log.Fatalf("failed to open file: %s", err)
+	}
+	defer file.Close()
+
+	sum := 0
+	var split []string
+	var sets []string
+	var cubes []string
+	var game int
+	redValue := 0
+	greenValue := 0
+	blueValue := 0
+	redMAX := 12
+	greenMAX := 13
+	blueMAX := 14
+
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		line := scanner.Text()
+
+		split = strings.Split(line, ":")
+		game = extractNumbers(split[0])
+
+		sets = strings.Split(split[1], ";")
+		redValue = 0
+		greenValue = 0
+		blueValue = 0
+
+		for _, set := range sets {
+			cubes = strings.Split(set, ",")
+			for _, atom := range cubes {
+				if strings.Contains(atom, "red") {
+					if extractNumbers(atom) > redMAX {
+						redValue = extractNumbers(atom)
+					}
+				}
+				if strings.Contains(atom, "green") {
+					if extractNumbers(atom) > greenMAX {
+						greenValue = extractNumbers(atom)
+					}
+				}
+				if strings.Contains(atom, "blue") {
+					if extractNumbers(atom) > blueMAX {
+						blueValue = extractNumbers(atom)
+					}
+				}
+			}
+		}
+
+		if (redValue < redMAX) && (greenValue < greenMAX) && (blueValue < blueMAX) {
+			sum += game
+		}
+	}
+
+	return sum
+}
+
+func day2b() int {
+	file, err := os.Open("data/day2.txt")
+	if err != nil {
+		log.Fatalf("failed to open file: %s", err)
+	}
+	defer file.Close()
+
+	sum := 0
+	var split []string
+	var sets []string
+	var cubes []string
+	//	var game int
+	redValue := 0
+	greenValue := 0
+	blueValue := 0
+	redMAX := 0
+	greenMAX := 0
+	blueMAX := 0
+
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		line := scanner.Text()
+
+		split = strings.Split(line, ":")
+		//game = extractNumbers(split[0])
+
+		sets = strings.Split(split[1], ";")
+		redValue = 0
+		greenValue = 0
+		blueValue = 0
+		redMAX = 0
+		greenMAX = 0
+		blueMAX = 0
+
+		for _, set := range sets {
+			cubes = strings.Split(set, ",")
+			for _, atom := range cubes {
+				if strings.Contains(atom, "red") {
+					redValue = extractNumbers(atom)
+					if redValue > redMAX {
+						redMAX = redValue
+					}
+				}
+				if strings.Contains(atom, "green") {
+					greenValue = extractNumbers(atom)
+					if greenValue > greenMAX {
+						greenMAX = greenValue
+					}
+				}
+				if strings.Contains(atom, "blue") {
+					blueValue = extractNumbers(atom)
+					if blueValue > blueMAX {
+						blueMAX = blueValue
+					}
+				}
+			}
+		}
+
+		sum += redMAX * greenMAX * blueMAX
+	}
+
+	return sum
 }

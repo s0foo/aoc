@@ -6,17 +6,21 @@ import (
 )
 
 func TestDay1a(t *testing.T) {
-	result, err := day1a()
-	if err != nil {
-		t.Errorf("day1a internal error")
-	}
+	result := day1a()
 	log.Println("Result:", result)
 }
 
 func TestDay1b(t *testing.T) {
-	result, err := day1b()
-	if err != nil {
-		t.Errorf("day1b internal error")
-	}
+	result := day1b()
+	log.Println("Result:", result)
+}
+
+func TestDay2a(t *testing.T) {
+	result := day2a()
+	log.Println("Result:", result)
+}
+
+func TestDay2b(t *testing.T) {
+	result := day2b()
 	log.Println("Result:", result)
 }
