@@ -24,3 +24,8 @@ func TestDay2b(t *testing.T) {
 	result := day2b()
 	log.Println("Result:", result)
 }
+
+func TestDay3a(t *testing.T) {
+	result := day3a()
+	log.Println("Result:", result)
+}

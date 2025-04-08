@@ -239,3 +239,25 @@ func day2b() int {
 
 	return sum
 }
+
+func day3a() int {
+	file, err := os.Open("data/day3.txt")
+	if err != nil {
+		log.Fatalf("failed to open file: %s", err)
+	}
+	defer file.Close()
+
+	sum := 0
+
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		line := scanner.Text()
+		log.Println(line)
+		s, t, u := extractLineNumbers(line)
+		log.Println(s)
+		log.Println(t)
+		log.Println(u)
+	}
+
+	return sum
+}
