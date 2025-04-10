@@ -274,12 +274,12 @@ func day3a(filePath string) int {
 		start = lineCoord[0][2*n]
 		end = lineCoord[0][2*n+1]
 		for _, p := range linePos[0] {
-			if ((p == start - 1) || ((p>=start) && (p<=end)) || (p == end + 1)) {
+			if (p == start-1) || ((p >= start) && (p <= end)) || (p == end+1) {
 				middle = true
 			}
 		}
 		for _, p := range linePos[1] {
-			if ((p == start - 1) || ((p>=start) && (p<=end)) || (p == end + 1)) {
+			if (p == start-1) || ((p >= start) && (p <= end)) || (p == end+1) {
 				below = true
 			}
 		}
@@ -297,17 +297,17 @@ func day3a(filePath string) int {
 			start = lineCoord[c][2*n]
 			end = lineCoord[c][2*n+1]
 			for _, p := range linePos[c-1] {
-				if ((p == start - 1) || ((p>=start) && (p<=end)) || (p == end + 1)) {
+				if (p == start-1) || ((p >= start) && (p <= end)) || (p == end+1) {
 					above = true
 				}
 			}
 			for _, p := range linePos[c] {
-				if ((p == start - 1) || ((p>=start) && (p<=end)) || (p == end + 1)) {
+				if (p == start-1) || ((p >= start) && (p <= end)) || (p == end+1) {
 					middle = true
 				}
 			}
 			for _, p := range linePos[c+1] {
-				if ((p == start - 1) || ((p>=start) && (p<=end)) || (p == end + 1)) {
+				if (p == start-1) || ((p >= start) && (p <= end)) || (p == end+1) {
 					below = true
 				}
 			}
@@ -325,12 +325,12 @@ func day3a(filePath string) int {
 		start = lineCoord[lastLine][2*n]
 		end = lineCoord[lastLine][2*n+1]
 		for _, p := range linePos[lastLine-1] {
-			if ((p == start - 1) || ((p>=start) && (p<=end)) || (p == end + 1)) {
+			if (p == start-1) || ((p >= start) && (p <= end)) || (p == end+1) {
 				above = true
 			}
 		}
 		for _, p := range linePos[lastLine] {
-			if ((p == start - 1) || ((p>=start) && (p<=end)) || (p == end + 1)) {
+			if (p == start-1) || ((p >= start) && (p <= end)) || (p == end+1) {
 				middle = true
 			}
 		}

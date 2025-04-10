@@ -1,9 +1,8 @@
 package aoc
 
 import (
-	//"fmt"
-    "strconv"
-    "unicode"
+	"strconv"
+	"unicode"
 )
 
 func extractNumbers(s string) int {
@@ -27,7 +26,7 @@ func extractLineNumbers(s string) ([]int, []int, []int) {
 	var lineSet []int
 	var lineCoord []int
 	var symbolPos []int
-	var num int	
+	var num int
 	var numStr string
 
 	for i, char := range s {
@@ -36,6 +35,11 @@ func extractLineNumbers(s string) ([]int, []int, []int) {
 				lineCoord = append(lineCoord, i)
 			}
 			numStr += string(char)
+			if (i == len(s)-1) && (len(numStr) > 0) {
+				lineCoord = append(lineCoord, i)
+				num, _ = strconv.Atoi(numStr)
+				lineSet = append(lineSet, num)
+			}
 		} else {
 			if char != '.' {
 				symbolPos = append(symbolPos, i)
