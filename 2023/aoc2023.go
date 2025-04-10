@@ -240,8 +240,8 @@ func day2b() int {
 	return sum
 }
 
-func day3a() int {
-	file, err := os.Open("data/day3.txt")
+func day3a(filePath string) int {
+	file, err := os.Open(filePath)
 	if err != nil {
 		log.Fatalf("failed to open file: %s", err)
 	}
@@ -249,14 +249,96 @@ func day3a() int {
 
 	sum := 0
 
+	var lineNumbers [][]int
+	var lineCoord [][]int
+	var linePos [][]int
+
 	scanner := bufio.NewScanner(file)
 	for scanner.Scan() {
 		line := scanner.Text()
-		log.Println(line)
 		s, t, u := extractLineNumbers(line)
-		log.Println(s)
-		log.Println(t)
-		log.Println(u)
+		lineNumbers = append(lineNumbers, s)
+		lineCoord = append(lineCoord, t)
+		linePos = append(linePos, u)
+	}
+
+	above := false
+	middle := false
+	below := false
+
+	start := 0
+	end := 0
+
+	// first line
+	for n, s := range lineNumbers[0] {
+		start = lineCoord[0][2*n]
+		end = lineCoord[0][2*n+1]
+		for _, p := range linePos[0] {
+			if ((p == start - 1) || ((p>=start) && (p<=end)) || (p == end + 1)) {
+				middle = true
+			}
+		}
+		for _, p := range linePos[1] {
+			if ((p == start - 1) || ((p>=start) && (p<=end)) || (p == end + 1)) {
+				below = true
+			}
+		}
+		if middle || below {
+			sum += s
+		}
+		middle = false
+		below = false
+	}
+
+	// middle lines
+	lastLine := len(lineCoord) - 1
+	for c := 1; c < lastLine; c++ {
+		for n, s := range lineNumbers[c] {
+			start = lineCoord[c][2*n]
+			end = lineCoord[c][2*n+1]
+			for _, p := range linePos[c-1] {
+				if ((p == start - 1) || ((p>=start) && (p<=end)) || (p == end + 1)) {
+					above = true
+				}
+			}
+			for _, p := range linePos[c] {
+				if ((p == start - 1) || ((p>=start) && (p<=end)) || (p == end + 1)) {
+					middle = true
+				}
+			}
+			for _, p := range linePos[c+1] {
+				if ((p == start - 1) || ((p>=start) && (p<=end)) || (p == end + 1)) {
+					below = true
+				}
+			}
+			if above || middle || below {
+				sum += s
+			}
+			above = false
+			middle = false
+			below = false
+		}
+	}
+
+	// last line
+	for n, s := range lineNumbers[lastLine] {
+		start = lineCoord[lastLine][2*n]
+		end = lineCoord[lastLine][2*n+1]
+		for _, p := range linePos[lastLine-1] {
+			if ((p == start - 1) || ((p>=start) && (p<=end)) || (p == end + 1)) {
+				above = true
+			}
+		}
+		for _, p := range linePos[lastLine] {
+			if ((p == start - 1) || ((p>=start) && (p<=end)) || (p == end + 1)) {
+				middle = true
+			}
+		}
+		if above || middle {
+			sum += s
+		}
+		above = false
+		below = false
 	}
 
 	return sum
