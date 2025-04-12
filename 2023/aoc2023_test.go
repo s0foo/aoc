@@ -34,3 +34,13 @@ func TestDay3a(t *testing.T) {
 	result := day3a("data/day3.txt")
 	log.Println("Result:", result)
 }
+
+func TestDay3bExample(t *testing.T) {
+	result := day3b("data/day3_example.txt")
+	log.Println("Result:", result)
+}
+
+func TestDay3b(t *testing.T) {
+	result := day3b("data/day3.txt")
+	log.Println("Result:", result)
+}

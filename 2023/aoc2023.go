@@ -343,3 +343,95 @@ func day3a(filePath string) int {
 
 	return sum
 }
+
+func day3b(filePath string) int {
+	file, err := os.Open(filePath)
+	if err != nil {
+		log.Fatalf("failed to open file: %s", err)
+	}
+	defer file.Close()
+
+	gearRatio := 0
+
+	var lineNumbers [][]int
+	var lineCoord [][]int
+	var gearPos [][]int
+
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		line := scanner.Text()
+		s, t, u := extractLineNumbersGear(line)
+		lineNumbers = append(lineNumbers, s)
+		lineCoord = append(lineCoord, t)
+		gearPos = append(gearPos, u)
+	}
+
+	start := 0
+	end := 0
+
+	m := make(map[int][]int)
+
+	// first line
+	for n, s := range lineNumbers[0] {
+		start = lineCoord[0][2*n]
+		end = lineCoord[0][2*n+1]
+		for i, p := range gearPos[0] {
+			if (p == start-1) || (p == end+1) {
+				m[i] = append(m[i], s)
+			}
+		}
+		for i, p := range gearPos[1] {
+			if (p == start-1) || ((p >= start) && (p <= end)) || (p == end+1) {
+				m[1000+i] = append(m[1000+i], s)
+			}
+		}
+	}
+
+	// middle lines
+	lastLine := len(lineCoord) - 1
+	for c := 1; c < lastLine; c++ {
+		for n, s := range lineNumbers[c] {
+			start = lineCoord[c][2*n]
+			end = lineCoord[c][2*n+1]
+			for i, p := range gearPos[c-1] {
+				if (p == start-1) || ((p >= start) && (p <= end)) || (p == end+1) {
+					m[(c-1)*1000+i] = append(m[(c-1)*1000+i], s)
+				}
+			}
+			for i, p := range gearPos[c] {
+				if (p == start-1) || (p == end+1) {
+					m[c*1000+i] = append(m[c*1000+i], s)
+				}
+			}
+			for i, p := range gearPos[c+1] {
+				if (p == start-1) || ((p >= start) && (p <= end)) || (p == end+1) {
+					m[(c+1)*1000+i] = append(m[(c+1)*1000+i], s)
+				}
+			}
+		}
+	}
+
+	// last line
+	for n, s := range lineNumbers[lastLine] {
+		start = lineCoord[lastLine][2*n]
+		end = lineCoord[lastLine][2*n+1]
+		for i, p := range gearPos[lastLine-1] {
+			if (p == start-1) || ((p >= start) && (p <= end)) || (p == end+1) {
+				m[((lastLine)-1)*1000+i] = append(m[((lastLine)-1)*1000+i], s)
+			}
+		}
+		for i, p := range gearPos[lastLine] {
+			if (p == start-1) || (p == end+1) {
+				m[(lastLine)*1000+i] = append(m[(lastLine)*1000+i], s)
+			}
+		}
+	}
+
+	for i, _ := range m {
+		if len(m[i]) == 2 {
+			gearRatio += m[i][0] * m[i][1]
+		}
+	}
+
+	return gearRatio
+}
