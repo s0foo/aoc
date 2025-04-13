@@ -1,6 +1,7 @@
 package aoc
 
 import (
+	"math"
 	"strconv"
 	"unicode"
 )
@@ -88,4 +89,25 @@ func extractLineNumbersGear(s string) ([]int, []int, []int) {
 	}
 
 	return lineSet, lineCoord, symbolPos
+}
+
+func intersection(u, v []int) []int {
+	m := make(map[int]bool)
+	var c []int
+
+	for _, e := range u {
+		m[e] = true
+	}
+
+	for _, e := range v {
+		if m[e] {
+			c = append(c, e)
+		}
+	}
+
+	return c
+}
+
+func powInt(x, y int) int {
+	return int(math.Pow(float64(x), float64(y)))
 }
