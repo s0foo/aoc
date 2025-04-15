@@ -4,7 +4,6 @@ import (
 	"bufio"
 	"log"
 	"os"
-	"strconv"
 	"strings"
 )
 
@@ -29,14 +28,8 @@ func day4a(filePath string) int {
 		winningNumbers := strings.Fields(numbers[0])
 		havingNumbers := strings.Fields(numbers[1])
 
-		for _, s := range winningNumbers {
-			num, _ := strconv.Atoi(s)
-			winningNumbersInt = append(winningNumbersInt, num)
-		}
-		for _, s := range havingNumbers {
-			num, _ := strconv.Atoi(s)
-			havingNumbersInt = append(havingNumbersInt, num)
-		}
+		winningNumbersInt = str2IntSlice(winningNumbers)
+		havingNumbersInt = str2IntSlice(havingNumbers)
 
 		l := len(intersection(winningNumbersInt, havingNumbersInt))
 		if l > 0 {
@@ -70,14 +63,8 @@ func day4b(filePath string) int {
 		winningNumbers := strings.Fields(numbers[0])
 		havingNumbers := strings.Fields(numbers[1])
 
-		for _, s := range winningNumbers {
-			num, _ := strconv.Atoi(s)
-			winningNumbersInt = append(winningNumbersInt, num)
-		}
-		for _, s := range havingNumbers {
-			num, _ := strconv.Atoi(s)
-			havingNumbersInt = append(havingNumbersInt, num)
-		}
+		winningNumbersInt = str2IntSlice(winningNumbers)
+		havingNumbersInt = str2IntSlice(havingNumbers)
 
 		l := len(intersection(winningNumbersInt, havingNumbersInt))
 		m[cl] += 1

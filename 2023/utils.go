@@ -111,3 +111,12 @@ func intersection(u, v []int) []int {
 func powInt(x, y int) int {
 	return int(math.Pow(float64(x), float64(y)))
 }
+
+func str2IntSlice(strSlice []string) []int {
+	var intSlice []int
+	for _, s := range strSlice {
+		n, _ := strconv.Atoi(s)
+		intSlice = append(intSlice, n)
+	}
+	return intSlice
+}
